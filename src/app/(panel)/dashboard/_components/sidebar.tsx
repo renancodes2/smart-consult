@@ -58,7 +58,7 @@ export function SideBarDashboard({ children }: SideBarDashboardProps){
             (
               <FiChevronRight size={24} color="#505050"/>
             ) 
-              : 
+              :
             (
               <FiChevronLeft size={24} color="#505050"/>
             )
@@ -167,13 +167,12 @@ export function SideBarDashboard({ children }: SideBarDashboardProps){
           <Sheet open={showModal} onOpenChange={setShowModal}>
             <div className="flex items-center gap-5s">
               <SheetTrigger>
-                <Button 
-                  variant={"outline"} 
-                  size="icon" 
-                  className="md-hidden cursor-pointer border-none"
+                <div
+                  onClick={() => setIsOpen(false)}
+                  className="md-hidden cursor-pointer border-none pl-2 pr-4"
                 >
                   <FaList size={22} color="#909090"/>
-                </Button>
+                </div>
               </SheetTrigger>
               <h1 className="pl-2 border-none">
                 Menu SmartConsult
