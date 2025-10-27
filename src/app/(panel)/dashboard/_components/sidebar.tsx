@@ -162,7 +162,7 @@ export function SideBarDashboard({ children }: SideBarDashboardProps){
       })}
       >
 
-        <header className="md:hidden flex items-center justify-between border-b-2 border-dashed border-[#909090] h-14 z-10 sticky top-0 bg-whites">
+        <header className="md:hidden flex items-center justify-between border-b-2 border-dashed border-[#909090] h-14 z-10 sticky top-0 bg-whites bg-white">
 
           <Sheet open={showModal} onOpenChange={setShowModal}>
             <div className="flex items-center gap-5s">

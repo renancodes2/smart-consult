@@ -18,7 +18,7 @@ export async function getUserData({ userId }: GetUserDataProps){
     })
 
     if(!user) return null;
-
+    
     return user;
 
   }catch(err){
