@@ -22,11 +22,14 @@ export function AppointmentTimes({
   clinicTimes,
   handleSelectTime,
   selectedTime
-}: AppointmentTimesProps){
+}: AppointmentTimesProps
+
+){
 
   const [isDisabled, setIsDisabled] = useState<Array<string>>([]);
 
   useEffect(() => {
+    setIsDisabled([]);
     const res = isSelected(getDuration, selectedTime);
     setIsDisabled(res);
   }, [selectedTime])
@@ -61,6 +64,36 @@ function isSelected(getDuration: number, selectedTime: string) {
 
     return Array.from(times);
 }
+
+  const isTimePassed = (time: string) => {
+    const [hours, minutes] = time.split(':').map(Number);
+
+    const now = new Date();
+  
+    const nowHours = now.getHours();
+    const nowMinutes = now.getMinutes();
+
+    if(hours < nowHours && minutes < nowMinutes){
+      return true;
+    }else if(hours === nowHours && minutes <= nowMinutes){
+      return true;
+    }
+    return false;
+  }
+
+  const analyzeToday = (date: Date) => {
+
+    const today = new Date();
+
+
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    )
+  }
+
+
   return (
     <div 
       className="
@@ -78,7 +111,7 @@ function isSelected(getDuration: number, selectedTime: string) {
           "
       >
       {availableTimes.map((timeObj) => (
-        <button 
+        <button
           key={timeObj.time}
           onClick={() => 
             handleSelectTime(
@@ -97,7 +130,10 @@ function isSelected(getDuration: number, selectedTime: string) {
             ${selectedTime === timeObj.time ? 'border-1 border-[#000010]' : ''}
             ${blockedTimes.includes(timeObj.time) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}
           `}
-          
+          disabled={
+            analyzeToday(selectedDate) && 
+            isTimePassed(timeObj.time)
+          }
         >
           {timeObj.time}
         </button>

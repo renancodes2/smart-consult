@@ -1,13 +1,21 @@
 'use client'
 
-import { ProfileFormData, useSchemaForm } from "./schema-zod";
+import { ProfileFormData,useSchemaForm } from "./schema-zod";
 import Image from "next/image";
 import AvatarImg from "../../../../../assets/avatar.png";
 import { Label } from "@radix-ui/react-label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 import { FiCalendar, FiLogOut } from "react-icons/fi";
 import { useSession, signOut } from "next-auth/react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { timezone } from "../_timezone/get_timezone";
+import { Prisma } from "@/generated/prisma";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { updateUser } from "../_actions/update";
+import { formatPhoneNumber, removeCharacters } from "@/utils/format-phone-number";
 import {
   Form,
   FormControl,
@@ -16,7 +24,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import {
   Select,
   SelectContent,
@@ -32,14 +39,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { timezone } from "../_timezone/get_timezone";
-import { Prisma } from "@/generated/prisma";
-import { toast } from "sonner";
-import { formatPhoneNumber, removeCharacters } from "@/utils/format-phone-number";
-import { useRouter } from "next/navigation";
-import { updateUser } from "../_actions/update";
 
 export type UserWithSubscription = Prisma.UserGetPayload<{
   include: {

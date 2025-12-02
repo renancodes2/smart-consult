@@ -69,7 +69,7 @@ export function Main({ clinicInfo }: MainProps){
     const month = selectedDate.getMonth() + 1;
     const day = selectedDate.getDate();
 
-    const appointmentDate = new Date(year, month - 1, day);
+    const appointmentDate = new Date(year, month - 1, day, 0, 0, 0, 0);
 
     const {
       name,
@@ -138,7 +138,7 @@ export function Main({ clinicInfo }: MainProps){
         time,
         isAvailable: !blockedTimes.includes(time)
       }));
-
+      console.log(timesAvailability)
       setAvailableTimes(timesAvailability);
     });
   }, [
